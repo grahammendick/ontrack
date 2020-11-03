@@ -72,7 +72,10 @@ function App() {
         <Button
           variant="primary"
           type="submit"
-          onClick={() => setTitle(filter)}>
+          onClick={() => {
+            setPage(1)
+            setTitle(filter)
+          }}>
           Search
         </Button>
       </Form>
