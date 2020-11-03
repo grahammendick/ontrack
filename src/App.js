@@ -1,5 +1,7 @@
 import { useEffect, useState, useContext } from 'react';
 import ListGroup from 'react-bootstrap/ListGroup';
+import Form from 'react-bootstrap/Form';
+import Button from 'react-bootstrap/Button';
 import Pager from './Pager';
 import FetchContext from './FetchContext';
 import './App.scss';
@@ -21,6 +23,8 @@ function App() {
   const [books, setBooks] = useState([]);
   const [count, setCount] = useState(0);
   const [page, setPage] = useState(null);
+  const [filter, setFilter] = useState('');
+  const [title, setTitle] = useState('');
   const fetch = useContext(FetchContext);
   useHistory(page, setPage);
   useEffect(() => {
@@ -36,7 +40,7 @@ function App() {
       body: JSON.stringify({
         page,
         itemsPerPage: 20,
-        filters: []
+        filters: [{type: "all", values: [title]}]
       })
     })
     .then(res => res.json())
@@ -47,10 +51,24 @@ function App() {
       }
     });
     return () => cancel = true;
-  }, [page, setBooks, setCount]);
+  }, [page, title, setBooks, setCount, fetch]);
   return (
     <>
       <h1>OnTrack tech test</h1>
+      <Form onSubmit={e => e.preventDefault()}>
+        <Form.Group controlId="title">
+          <Form.Label>Title</Form.Label>
+          <Form.Control
+            value={filter}
+            onChange={e => setFilter(e.target.value)} />
+        </Form.Group>
+        <Button
+          variant="primary"
+          type="submit"
+          onClick={() => setTitle(filter)}>
+          Search
+        </Button>
+      </Form>
       <ListGroup as="ul">
         {books.map(({id, book_title}) => (
           <ListGroup.Item as="li" key={id}>
