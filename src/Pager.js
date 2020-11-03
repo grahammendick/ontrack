@@ -20,12 +20,11 @@ function Pager({count, page, title, setPage}) {
   return (
     <Pagination onClick={handlePageChange}>
     {pages.map(p => (
-        <Pagination.Item
-          active={p === page}
-          href={`/${p !== 1 ? p : ''}${title ? '?title=' : ''}${title}`}
-          key={p}>
-        {p}
-        </Pagination.Item>
+      <Pagination.Item
+        active={p === page}
+        href={`/${p !== 1 ? p : ''}${title ? '?title=' : ''}${title}`}
+        key={p}
+        children={p} />
     ))}
     </Pagination>
   );
