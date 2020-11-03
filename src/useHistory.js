@@ -15,6 +15,7 @@ const useHistory = (page, title, setPage, setTitle, setFilter) => {
     const handlePopState = () => {
       setPage(getPage());
       setTitle(getTitle());
+      setFilter(getTitle())
     };
     window.addEventListener('popstate', handlePopState);
     return () => window.removeEventListener('popstate', handlePopState);
