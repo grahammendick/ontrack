@@ -1,20 +1,13 @@
 import { useEffect, useState, useMemo } from 'react';
 import ListGroup from 'react-bootstrap/ListGroup';
 import Pagination from 'react-bootstrap/Pagination';
+import Pager from './Pager';
 import './App.scss';
 
 function App() {
   const [books, setBooks] = useState([]);
   const [count, setCount] = useState(0);
   const [page, setPage] = useState(null);
-  const pages = useMemo(() => {
-    const lastPage = Math.ceil(count / 20);
-    return count > 0 ? Array.from({length: 10}, (_, i) => (
-       page - 5 + i 
-        + (page - 5 < 1 ? 5 - page + 1 : 0)
-        - (page + 4 > lastPage ? page + 4 - lastPage : 0)
-    )) : [];  
-  }, [count, page]);
   useEffect(() => {
     const getPage = () => +window.location.pathname.substring(1) || 1;
     if (!page)
@@ -50,14 +43,6 @@ function App() {
     });
     return () => cancel = true;
   }, [page]);
-  const handlePageChange = e => {
-    if (!e.ctrlKey && !e.shiftKey && !e.metaKey && !e.altKey && !e.button) {
-      if (e.target.tagName === 'A') {
-        e.preventDefault();
-        setPage(+e.target.text);
-      }
-    }
-  };
   return (
     <>
       <h1>OnTrack tech test</h1>
@@ -68,13 +53,7 @@ function App() {
           </ListGroup.Item>
         ))}
       </ListGroup>
-      <Pagination onClick={handlePageChange}>
-        {pages.map(p => (
-          <Pagination.Item active={p === page} href={`/${p}`} key={p}>
-            {p}
-          </Pagination.Item>
-        ))}
-      </Pagination>
+      <Pager count={count} page={page} setPage={setPage} />
     </>
   );
 }
