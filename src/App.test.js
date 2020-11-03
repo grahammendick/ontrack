@@ -8,7 +8,9 @@ import App from './App';
 const mockFetch = books => (
   (_, data) => ({
     then: () => ({
-      then : fn => act(() => fn(books[JSON.parse(data.body).page]))
+      then : fn => act(() => (
+        fn(books[JSON.parse(data.body).page])
+      ))
     })
   })
 );
