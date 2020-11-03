@@ -1,7 +1,6 @@
 import { useEffect, useState, useContext } from 'react';
 import ListGroup from 'react-bootstrap/ListGroup';
-import Form from 'react-bootstrap/Form';
-import Button from 'react-bootstrap/Button';
+import Filter from './Filter';
 import Pager from './Pager';
 import FetchContext from './FetchContext';
 import './App.scss';
@@ -63,23 +62,11 @@ function App() {
   return (
     <>
       <h1>OnTrack tech test</h1>
-      <Form onSubmit={e => e.preventDefault()}>
-        <Form.Group controlId="title">
-          <Form.Label>Title</Form.Label>
-          <Form.Control
-            value={filter}
-            onChange={e => setFilter(e.target.value)} />
-        </Form.Group>
-        <Button
-          variant="primary"
-          type="submit"
-          onClick={() => {
-            setPage(1)
-            setTitle(filter)
-          }}>
-          Search
-        </Button>
-      </Form>
+      <Filter
+        filter={filter}
+        setFilter={setFilter}
+        setTitle={setTitle}
+        setPage={setPage} />
       <ListGroup as="ul">
         {books.map(({id, book_title}) => (
           <ListGroup.Item as="li" key={id}>
