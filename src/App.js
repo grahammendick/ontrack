@@ -1,6 +1,5 @@
-import { useEffect, useState, useMemo } from 'react';
+import { useEffect, useState } from 'react';
 import ListGroup from 'react-bootstrap/ListGroup';
-import Pagination from 'react-bootstrap/Pagination';
 import Pager from './Pager';
 import './App.scss';
 
