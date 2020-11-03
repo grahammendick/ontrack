@@ -6,7 +6,7 @@ function Pager({count, page, title, setPage}) {
     const lastPage = Math.ceil(count / 20);
     const start = 5 - Math.min(0, lastPage - (page + 4));
     return count > 0 ? Array.from({length: Math.min(lastPage, 10)}, (_, i) => (
-       page - start + i + (page - start < 1 ? start - page + 1 : 0)
+       page - start + i + Math.max(start - page + 1, 0)
     )) : [];  
   }, [count, page]);
   const handlePageChange = e => {
