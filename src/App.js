@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import ListGroup from 'react-bootstrap/ListGroup'
+import ListGroup from 'react-bootstrap/ListGroup';
 import './App.scss';
 
 function App() {
