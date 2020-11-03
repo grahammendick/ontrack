@@ -52,10 +52,7 @@ function App() {
         }
       }}>
         {pages.map(p => (
-          <Pagination.Item
-            active={p === page}
-            href={`/${p}`}
-            key={p}>
+          <Pagination.Item active={p === page} href={`/${p}`} key={p}>
             {p}
           </Pagination.Item>
         ))}
