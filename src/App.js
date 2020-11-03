@@ -16,9 +16,16 @@ function App() {
     )) : [];  
   }, [count, page]);
   useEffect(() => {
+    const urlPage = +window.location.pathname.substring(1) || 1;
     if (!page)
+      setPage(urlPage);
+    if (page !== urlPage)
+      window.history.pushState(null, null, `/${page !== 1 ? page : ''}`);
+    const handlePopState = () => {
       setPage(+window.location.pathname.substring(1) || 1);
-    window.history.pushState(null, null, `/${page !== 1 ? page : ''}`)
+    };
+    window.addEventListener('popstate', handlePopState);
+    return () => window.removeEventListener('popstate', handlePopState);
   }, [page]);
   useEffect(() => {
     if (!page)
