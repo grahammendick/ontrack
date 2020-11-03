@@ -9,11 +9,11 @@ function App() {
   const [page, setPage] = useState(1);
   const pages = useMemo(() => {
     const lastPage = Math.ceil(count / 20);
-    return Array.from({length: 10}, (_, i) => (
+    return count > 0 ? Array.from({length: 10}, (_, i) => (
        page - 5 + i 
         + (page - 5 < 1 ? 5 - page + 1 : 0)
         - (page + 4 > lastPage ? page + 4 - lastPage : 0)
-    ));  
+    )) : [];  
   }, [count, page]);
   useEffect(() => {
     fetch('http://nyx.vima.ekt.gr:3000/api/books', {
