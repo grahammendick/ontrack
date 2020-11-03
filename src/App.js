@@ -6,13 +6,14 @@ import Pager from './Pager';
 import FetchContext from './FetchContext';
 import './App.scss';
 
-const useHistory = (page, title, setPage, setTitle) => {
+const useHistory = (page, title, setPage, setTitle, setFilter) => {
   useEffect(() => {
     const getPage = () => +window.location.pathname.substring(1) || 1;
     const getTitle = () => window.location.search.substring(7);
     if (!page) {
       setPage(getPage());
       setTitle(getTitle())
+      setFilter(getTitle())
     }
     if (page && (page !== getPage() || title !== getTitle()))
       window.history.pushState(null, null, 
@@ -23,7 +24,7 @@ const useHistory = (page, title, setPage, setTitle) => {
     };
     window.addEventListener('popstate', handlePopState);
     return () => window.removeEventListener('popstate', handlePopState);
-  }, [page, title, setPage, setTitle]);
+  }, [page, title, setPage, setTitle, setFilter]);
 };
 
 function App() {
@@ -33,7 +34,7 @@ function App() {
   const [filter, setFilter] = useState('');
   const [title, setTitle] = useState('');
   const fetch = useContext(FetchContext);
-  useHistory(page, title, setPage, setTitle);
+  useHistory(page, title, setPage, setTitle, setFilter);
   useEffect(() => {
     if (!page)
       return;
