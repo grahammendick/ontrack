@@ -1,12 +1,20 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useMemo } from 'react';
 import ListGroup from 'react-bootstrap/ListGroup';
 import Pagination from 'react-bootstrap/Pagination';
 import './App.scss';
 
 function App() {
   const [books, setBooks] = useState([]);
-  const [number, setCount] = useState(0);
+  const [count, setCount] = useState(0);
   const [page, setPage] = useState(1);
+  const pages = useMemo(() => {
+    const lastPage = Math.ceil(count / 20);
+    return Array.from({length: 10}, (_, i) => (
+       page - 5 + i 
+        + (page - 5 < 1 ? 5 - page + 1 : 0)
+        + (page + 4 > lastPage ? page - lastPage : 0)
+    ));  
+  }, [count, page])
   useEffect(() => {
     fetch('http://nyx.vima.ekt.gr:3000/api/books', {
       method: 'POST',
@@ -26,13 +34,6 @@ function App() {
       setCount(count);
     })
   }, [page]);
-  const lastPage = Math.ceil(2425 / 20);
-  const pages = Array.from({length: 10}, (_, i) => (
-     page - 5 + i 
-      + (page - 5 < 1 ? 5 - page + 1 : 0)
-      + (page + 4 > lastPage ? page - lastPage : 0)
-  ));
-  console.log(pages)
   return (
     <>
       <ListGroup as="ul">
