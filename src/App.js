@@ -36,9 +36,7 @@ function App() {
         setCount(count);
       }
     });
-    return () => {
-      cancel = true;
-    }
+    return () => cancel = true;
   }, [page]);
   const handlePageChange = e => {
     if (!e.ctrlKey && !e.shiftKey && !e.metaKey && !e.altKey && !e.button) {
