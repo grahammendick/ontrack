@@ -14,11 +14,10 @@ function App() {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-          page,
-          itemsPerPage: 20,
-          filters: []
-        }
-      )
+        page,
+        itemsPerPage: 20,
+        filters: []
+      })
     })
     .then(res => res.json())
     .then(({books}) => setBooks(books))
