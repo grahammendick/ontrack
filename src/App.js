@@ -12,7 +12,7 @@ function App() {
     const getPage = () => +window.location.pathname.substring(1) || 1;
     if (!page)
       setPage(getPage());
-    if (page !== getPage())
+    if (page && page !== getPage())
       window.history.pushState(null, null, `/${page !== 1 ? page : ''}`);
     const handlePopState = () => setPage(getPage());
     window.addEventListener('popstate', handlePopState);
