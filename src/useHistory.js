@@ -2,9 +2,8 @@ import { useEffect } from 'react';
 
 const useHistory = (page, title, setPage, setTitle, setFilter) => {
   useEffect(() => {
-    const {location: {pathname, search}} = window;
-    const getPage = () => +pathname.substring(1) || 1;
-    const getTitle = () => decodeURIComponent(search.substring(7));
+    const getPage = () => +window.location.pathname.substring(1) || 1;
+    const getTitle = () => decodeURIComponent(window.location.search.substring(7));
     const handleHistory = () => {
       setPage(getPage());
       setTitle(getTitle());
