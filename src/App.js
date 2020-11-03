@@ -32,7 +32,7 @@ function App() {
     .then(({books, count}) => {
       setBooks(books);
       setCount(count);
-    })
+    });
   }, [page]);
   const handlePageChange = e => {
     if (!e.ctrlKey && !e.shiftKey && !e.metaKey && !e.altKey && !e.button) {
