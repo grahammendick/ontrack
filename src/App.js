@@ -1,6 +1,7 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useContext } from 'react';
 import ListGroup from 'react-bootstrap/ListGroup';
 import Pager from './Pager';
+import FetchContext from './FetchContext';
 import './App.scss';
 
 const useHistory = (page, setPage) => {
@@ -20,6 +21,7 @@ function App() {
   const [books, setBooks] = useState([]);
   const [count, setCount] = useState(0);
   const [page, setPage] = useState(null);
+  const fetch = useContext(FetchContext);
   useHistory(page, setPage);
   useEffect(() => {
     if (!page)
