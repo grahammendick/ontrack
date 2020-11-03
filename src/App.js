@@ -31,7 +31,6 @@ function App() {
     })
     .then(res => res.json())
     .then(({books, count}) => {
-      console.log(cancel)
       if (!cancel) {
         setBooks(books);
         setCount(count);
