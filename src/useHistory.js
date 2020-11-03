@@ -11,9 +11,10 @@ const useHistory = (page, title, setPage, setTitle, setFilter) => {
     };
     if (!page)
       handleHistory();
-    if (page && (page !== getPage() || title !== getTitle()))
-      window.history.pushState(null, null, 
-        `/${page !== 1 ? page : ''}${title ? '?title=' : ''}${encodeURIComponent(title)}`);
+    if (page && (page !== getPage() || title !== getTitle())) {
+      window.history.pushState(null, null, `/${page !== 1 ? page : ''}`
+        + `${title ? '?title=' : ''}${encodeURIComponent(title)}`);
+    }
     window.addEventListener('popstate', handleHistory);
     return () => window.removeEventListener('popstate', handleHistory);
   }, [page, title, setPage, setTitle, setFilter]);
