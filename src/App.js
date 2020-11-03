@@ -6,7 +6,7 @@ import './App.scss';
 function App() {
   const [books, setBooks] = useState([]);
   const [count, setCount] = useState(0);
-  const [page, setPage] = useState(1);
+  const [page, setPage] = useState(null);
   const pages = useMemo(() => {
     const lastPage = Math.ceil(count / 20);
     return count > 0 ? Array.from({length: 10}, (_, i) => (
@@ -16,6 +16,13 @@ function App() {
     )) : [];  
   }, [count, page]);
   useEffect(() => {
+    if (!page)
+      setPage(+window.location.pathname.substring(1) || 1);
+    window.history.pushState(null, null, `/${page !== 1 ? page : ''}`)
+  }, [page]);
+  useEffect(() => {
+    if (!page)
+      return;
     let cancel = false;
     fetch('http://nyx.vima.ekt.gr:3000/api/books', {
       method: 'POST',
