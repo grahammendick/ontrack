@@ -1,8 +1,8 @@
-import { useEffect } from 'react';
-import logo from './logo.svg';
+import { useEffect, useState } from 'react';
 import './App.css';
 
 function App() {
+  const [books, setBooks] = useState([]);
   useEffect(() => {
     fetch('http://nyx.vima.ekt.gr:3000/api/books', {
       method: 'POST',
@@ -13,24 +13,15 @@ function App() {
         }
       )
     })
+    .then(res => res.json())
+    .then(({books}) => setBooks(books))
   }, []);
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <ul>
+      {books.map(({id, book_title}) => (
+        <li key={id}>{book_title}</li>
+      ))}
+    </ul>
   );
 }
 
