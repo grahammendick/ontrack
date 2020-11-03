@@ -13,7 +13,6 @@ function App() {
         'Accept': 'application/json',
         'Content-Type': 'application/json'
       },
-      cache: 'no-cache',
       body: JSON.stringify({
           page,
           itemsPerPage: 20,
