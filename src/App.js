@@ -1,7 +1,19 @@
+import { useEffect } from 'react';
 import logo from './logo.svg';
 import './App.css';
 
 function App() {
+  useEffect(() => {
+    fetch('http://nyx.vima.ekt.gr:3000/api/books', {
+      method: 'POST',
+      body: JSON.stringify({
+          page: 1,
+          itemsPerPage: 20,
+          filters: []
+        }
+      )
+    })
+  }, []);
   return (
     <div className="App">
       <header className="App-header">
