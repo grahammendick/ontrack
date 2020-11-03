@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import ListGroup from 'react-bootstrap/ListGroup'
 import './App.scss';
 
 function App() {
@@ -17,11 +18,13 @@ function App() {
     .then(({books}) => setBooks(books))
   }, []);
   return (
-    <ul>
+    <ListGroup as="ul">
       {books.map(({id, book_title}) => (
-        <li key={id}>{book_title}</li>
+        <ListGroup.Item as="li" key={id}>
+          {book_title}
+        </ListGroup.Item>
       ))}
-    </ul>
+    </ListGroup>
   );
 }
 
