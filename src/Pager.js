@@ -22,7 +22,7 @@ function Pager({count, page, title, setPage}) {
     {pages.map(p => (
       <Pagination.Item
         active={p === page}
-        href={`/${p !== 1 ? p : ''}${title ? '?title=' : ''}${title}`}
+        href={`/${p !== 1 ? p : ''}${title ? '?title=' : ''}${encodeURIComponent(title)}`}
         key={p}
         children={p} />
     ))}
