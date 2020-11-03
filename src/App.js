@@ -14,7 +14,7 @@ function App() {
         + (page - 5 < 1 ? 5 - page + 1 : 0)
         + (page + 4 > lastPage ? page - lastPage : 0)
     ));  
-  }, [count, page])
+  }, [count, page]);
   useEffect(() => {
     fetch('http://nyx.vima.ekt.gr:3000/api/books', {
       method: 'POST',
