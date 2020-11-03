@@ -45,13 +45,18 @@ function App() {
       </ListGroup>
       <Pagination onClick={e => {
         if (!e.ctrlKey && !e.shiftKey && !e.metaKey && !e.altKey && !e.button) {
-          e.preventDefault();
-          setPage(+e.target.text);
+          if (e.target.tagName === 'A') {
+            e.preventDefault();
+            setPage(+e.target.text);
+          }
         }
       }}>
-        {pages.map(page => (
-          <Pagination.Item href={`/${page}`} key={page}>
-            {page}
+        {pages.map(p => (
+          <Pagination.Item
+            active={p === page}
+            href={`/${p}`}
+            key={p}>
+            {p}
           </Pagination.Item>
         ))}
         
