@@ -16,6 +16,7 @@ function App() {
     )) : [];  
   }, [count, page]);
   useEffect(() => {
+    let cancel = false;
     fetch('http://nyx.vima.ekt.gr:3000/api/books', {
       method: 'POST',
       headers: {
@@ -30,9 +31,15 @@ function App() {
     })
     .then(res => res.json())
     .then(({books, count}) => {
-      setBooks(books);
-      setCount(count);
+      console.log(cancel)
+      if (!cancel) {
+        setBooks(books);
+        setCount(count);
+      }
     });
+    return () => {
+      cancel = true;
+    }
   }, [page]);
   const handlePageChange = e => {
     if (!e.ctrlKey && !e.shiftKey && !e.metaKey && !e.altKey && !e.button) {
