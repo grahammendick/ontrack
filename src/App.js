@@ -87,7 +87,11 @@ function App() {
           </ListGroup.Item>
         ))}
       </ListGroup>
-      <Pager count={count} page={page} setPage={setPage} />
+      <Pager
+        count={count}
+        page={page}
+        title={title}
+        setPage={setPage} />
     </>
   );
 }

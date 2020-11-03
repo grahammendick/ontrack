@@ -1,7 +1,7 @@
 import { useMemo } from 'react';
 import Pagination from 'react-bootstrap/Pagination';
 
-function Pager({count, page, setPage}) {
+function Pager({count, page, title, setPage}) {
   const pages = useMemo(() => {
     const lastPage = Math.ceil(count / 20);
     const start = 5 - Math.min(0, lastPage - (page + 4));
@@ -20,7 +20,10 @@ function Pager({count, page, setPage}) {
   return (
     <Pagination onClick={handlePageChange}>
     {pages.map(p => (
-        <Pagination.Item active={p === page} href={`/${p}`} key={p}>
+        <Pagination.Item
+          active={p === page}
+          href={`/${p !== 1 ? p : ''}${title ? '?title=' : ''}${title}`}
+          key={p}>
         {p}
         </Pagination.Item>
     ))}
