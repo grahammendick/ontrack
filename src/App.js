@@ -12,7 +12,7 @@ function App() {
     return Array.from({length: 10}, (_, i) => (
        page - 5 + i 
         + (page - 5 < 1 ? 5 - page + 1 : 0)
-        + (page + 4 > lastPage ? page - lastPage : 0)
+        - (page + 4 > lastPage ? page + 4 - lastPage : 0)
     ));  
   }, [count, page]);
   useEffect(() => {
