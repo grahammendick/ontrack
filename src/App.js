@@ -16,14 +16,12 @@ function App() {
     )) : [];  
   }, [count, page]);
   useEffect(() => {
-    const urlPage = +window.location.pathname.substring(1) || 1;
+    const getPage = () => +window.location.pathname.substring(1) || 1;
     if (!page)
-      setPage(urlPage);
-    if (page !== urlPage)
+      setPage(getPage());
+    if (page !== getPage())
       window.history.pushState(null, null, `/${page !== 1 ? page : ''}`);
-    const handlePopState = () => {
-      setPage(+window.location.pathname.substring(1) || 1);
-    };
+    const handlePopState = () => setPage(getPage());
     window.addEventListener('popstate', handlePopState);
     return () => window.removeEventListener('popstate', handlePopState);
   }, [page]);
