@@ -3,10 +3,7 @@ import ListGroup from 'react-bootstrap/ListGroup';
 import Pager from './Pager';
 import './App.scss';
 
-function App() {
-  const [books, setBooks] = useState([]);
-  const [count, setCount] = useState(0);
-  const [page, setPage] = useState(null);
+const useHistory = (page, setPage) => {
   useEffect(() => {
     const getPage = () => +window.location.pathname.substring(1) || 1;
     if (!page)
@@ -16,7 +13,14 @@ function App() {
     const handlePopState = () => setPage(getPage());
     window.addEventListener('popstate', handlePopState);
     return () => window.removeEventListener('popstate', handlePopState);
-  }, [page]);
+  }, [page, setPage]);
+};
+
+function App() {
+  const [books, setBooks] = useState([]);
+  const [count, setCount] = useState(0);
+  const [page, setPage] = useState(null);
+  useHistory(page, setPage);
   useEffect(() => {
     if (!page)
       return;
@@ -41,7 +45,7 @@ function App() {
       }
     });
     return () => cancel = true;
-  }, [page]);
+  }, [page, setBooks, setCount]);
   return (
     <>
       <h1>OnTrack tech test</h1>
