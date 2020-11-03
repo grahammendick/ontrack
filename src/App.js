@@ -34,6 +34,14 @@ function App() {
       setCount(count);
     })
   }, [page]);
+  const handlePageChange = e => {
+    if (!e.ctrlKey && !e.shiftKey && !e.metaKey && !e.altKey && !e.button) {
+      if (e.target.tagName === 'A') {
+        e.preventDefault();
+        setPage(+e.target.text);
+      }
+    }
+  };
   return (
     <>
       <ListGroup as="ul">
@@ -43,20 +51,12 @@ function App() {
           </ListGroup.Item>
         ))}
       </ListGroup>
-      <Pagination onClick={e => {
-        if (!e.ctrlKey && !e.shiftKey && !e.metaKey && !e.altKey && !e.button) {
-          if (e.target.tagName === 'A') {
-            e.preventDefault();
-            setPage(+e.target.text);
-          }
-        }
-      }}>
+      <Pagination onClick={handlePageChange}>
         {pages.map(p => (
           <Pagination.Item active={p === page} href={`/${p}`} key={p}>
             {p}
           </Pagination.Item>
         ))}
-        
       </Pagination>
     </>
   );
